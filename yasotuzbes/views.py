@@ -46,6 +46,26 @@ def result(request):
             quote = "Yaş 35 yolun yarısı eder. \n Dante gibi ortasındayız ömrün." 
         else:
             quote = "Ne dönüp duruyor havada kuşlar?\n Nerden çıktı bu cenaze? Ölen kim?"
+
+        ## Age conditions
+        if age == 18:
+            quote = "Delikanlı çağımızdaki cevher, \n Yalvarmak, yakarmak nafile bugün."
+        
+        if age == 19:
+            quote = "Hayal meyal şeylerden ilk aşkımız; \n Hâtırası bile yabancı gelir."
+
+        if age == 20:
+            quote = "Yalvarmak, yakarmak nafile bugün, \n Gözünün yaşına bakmadan gider."
+
+        if age == 21:
+            quote = "Her doğan günün bir dert olduğunu, \n İnsan bu yaşa gelince anlarmış."
+
+        if age == 22:
+            quote = "Hangi resmime baksam ben değilim \n Nerde o günler, o şevk, o heyecan?"
+
+        if age == 23:
+            quote = "Neden böyle düşman görünürsünüz; \n Yıllar yılı dost bildiğim aynalar?"
+
         if age >= 70:
             return render(request, 'dead.html')
         return render(request, 'result.html', {'age': age, 'perc': perc, 'birthdate': date_string, 'quote': quote})
