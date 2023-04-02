@@ -19,8 +19,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-*e75x8-sn*@7b0a32(&$*lvc=hkvpckg4e(=6pq$!&ao$4t9%7'
+if os.environ.get('SECRET_KEY') is None or os.environ.get('SECRET_KEY') == '':
+    ## read json
+    import json
+    # print path
+    print(os.path.abspath(os.path.dirname(__file__)))
+    with open('./secrets.json', 'r', encoding='utf-8') as f:
+        data = json.load(f)
+        SECRET_KEY = data['SECRET_KEY']
+else:
+    SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
