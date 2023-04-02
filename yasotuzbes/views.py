@@ -1,6 +1,6 @@
 import json
 import os
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 import datetime
 #import json response
 from django.http.response import JsonResponse
@@ -9,7 +9,7 @@ from django.http.response import JsonResponse
 def index(request):
     return render(request, 'index.html')
 
-def calcalateQuater(month):
+def calculateQuarter(month):
     if month >= 1 and month <= 3:
         return 1
     elif month >= 4 and month <= 6:
@@ -26,7 +26,6 @@ def result(request):
         date = datetime.datetime.strptime(data, '%Y-%m-%d')
         date_string = date.strftime('%d %B %Y') 
 
-        # replace January with Ocak
         #  I know its terrible xd. I will fix it later
         date_string = date_string.replace('January', 'Ocak')
         date_string = date_string.replace('February', 'Şubat')
@@ -43,7 +42,7 @@ def result(request):
 
         ## calculate the age
         age = datetime.datetime.now().year - date.year
-        quarter = calcalateQuater(date.month)
+        quarter = calculateQuarter(date.month)
         ## If the age is 35 perctange is 50% and
         ## Calculate the total days
         total_days = (datetime.datetime.now() - date).days 
@@ -85,6 +84,7 @@ def result(request):
         with open('yasotuzbes/datas/counter.json', 'w', encoding='utf-8') as f:
             json.dump(counter, f, indent=4, ensure_ascii=False)
         return render(request, 'result.html', {'age': age, 'perc': perc, 'birthdate': date_string, 'quote': data[f"{age}.{quarter}"], 'counter': counter['counter']})
-
+    else:
+        redirect('homepage')
 
     
