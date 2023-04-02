@@ -56,11 +56,12 @@ def result(request):
         with open('yasotuzbes/quotes/data.json', 'r', encoding='utf-8') as f:
             data = json.load(f)
 
-        ## 0-25 25-50 50-75 75-100 for perc
-                ## For main auidence
+
+        ## For main auidence
         if age >= 18 and age <= 23:
             pass
         else:
+            # for not detailed ages
             if perc >= 0 and perc <= 25:
                 age = 1
                 quarter = 1
@@ -70,21 +71,11 @@ def result(request):
             elif perc >= 50 and perc <= 75:
                 age = 40
                 quarter = 1
-            else:
+            elif perc >= 75 and perc <= 100:
                 age = 100
                 quarter = 1
-
-
-
-
-
-
-
-
-        ## json formak of quoteos
-        #quoteos = {
-        #    "quote": quote
-        #}
+            else:
+                return render(request, 'dead.html')
 
         # read json and inc counter
         with open('yasotuzbes/datas/counter.json', 'r', encoding='utf-8') as f:
@@ -93,10 +84,6 @@ def result(request):
         # write json
         with open('yasotuzbes/datas/counter.json', 'w', encoding='utf-8') as f:
             json.dump(counter, f, indent=4, ensure_ascii=False)
-
-
-        if age >= 70:
-            return render(request, 'dead.html')
         return render(request, 'result.html', {'age': age, 'perc': perc, 'birthdate': date_string, 'quote': data[f"{age}.{quarter}"], 'counter': counter['counter']})
 
 
