@@ -47,7 +47,7 @@ def result(request):
         ## If the age is 35 perctange is 50% and
         ## Calculate the total days
         total_days = (datetime.datetime.now() - date).days 
-        perc = total_days / 70 * 365 * 0.001;
+        perc = total_days / 25500 * 100;
         ## perc to fixes 2
         perc = round(perc, 2)
 
