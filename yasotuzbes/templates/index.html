@@ -31,6 +31,7 @@
 		h1 {
 			text-align: center;
 			margin-bottom: 20px;
+			color : #4CAF50;
 		}
 
 		label {
@@ -63,10 +64,10 @@
 </head>
 <body>
 	<div class="container">
-		<h1>Doğum Tarihinizi Giriniz</h1>
+		<h1>Yolun neresindesin?</h1>
 		<form method="POST" action="/result">
 			{% csrf_token %}
-			<label for="birthdate">Doğum tarihi:</label>
+			<label for="birthdate">Doğum tarihinizi giriniz</label>
 			<input type="date" id="birthdate" name="birthdate">
 			<button type="submit">Gönder</button>
 		</form>

@@ -85,15 +85,9 @@
 			color: #4CAF50;
 		}
 
-        .fba {
-            position: absolute;
-            bottom: 5%;
-            right: 10%;
-            background-color: #4CAF50;
-            padding: 15px;
-            border-radius: 5px;
-            color: white
-        }
+		.inner-container strong {
+			color: #4CAF50;
+		}
 
 	</style>
 </head>
@@ -109,9 +103,9 @@
 			<progress value="{{perc}}" max="100"></progress>
 		</div>
 		<div class="percentage">{{perc}}%</div>
+		<div class="inner-container">
+			<h3>Yolun neresinde olduğuna bakan <strong>{{counter}}.</strong> kişisin</h3>
+		</div>
 	</div>
-    <div class="fba">
-        Yolun neresinde olduğuna bakan <strong>{{counter}}</strong>. kişisin
-    </div>
 </body>
 </html>
