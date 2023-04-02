@@ -86,9 +86,18 @@ def result(request):
         #    "quote": quote
         #}
 
+        # read json and inc counter
+        with open('yasotuzbes/datas/counter.json', 'r', encoding='utf-8') as f:
+            counter = json.load(f)
+            counter['counter'] += 1
+        # write json
+        with open('yasotuzbes/datas/counter.json', 'w', encoding='utf-8') as f:
+            json.dump(counter, f, indent=4, ensure_ascii=False)
+
+
         if age >= 70:
             return render(request, 'dead.html')
-        return render(request, 'result.html', {'age': age, 'perc': perc, 'birthdate': date_string, 'quote': data[f"{age}.{quarter}"]})
+        return render(request, 'result.html', {'age': age, 'perc': perc, 'birthdate': date_string, 'quote': data[f"{age}.{quarter}"], 'counter': counter['counter']})
 
 
     
