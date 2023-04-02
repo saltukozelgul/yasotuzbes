@@ -44,8 +44,10 @@ def result(request):
         ## calculate the age
         age = datetime.datetime.now().year - date.year
         quarter = calcalateQuater(date.month)
-        ## If the age is 35 perctange is 50% and 
-        perc = age / 70 * 100;
+        ## If the age is 35 perctange is 50% and
+        ## Calculate the total days
+        total_days = (datetime.datetime.now() - date).days 
+        perc = total_days / 70 * 365 * 0.001;
         ## perc to fixes 2
         perc = round(perc, 2)
 
@@ -61,12 +63,16 @@ def result(request):
         else:
             if perc >= 0 and perc <= 25:
                 age = 1
+                quarter = 1
             elif perc >= 25 and perc <= 50:
                 age = 24
+                quarter = 1
             elif perc >= 50 and perc <= 75:
                 age = 40
+                quarter = 1
             else:
                 age = 100
+                quarter = 1
 
 
 
