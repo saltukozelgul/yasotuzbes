@@ -1,3 +1,5 @@
+import json
+import os
 from django.shortcuts import render
 import datetime
 #import json response
@@ -6,6 +8,16 @@ from django.http.response import JsonResponse
 # Create your views here.
 def index(request):
     return render(request, 'index.html')
+
+def calcalateQuater(month):
+    if month >= 1 and month <= 3:
+        return 1
+    elif month >= 4 and month <= 6:
+        return 2
+    elif month >= 7 and month <= 9:
+        return 3
+    else:
+        return 4
 
 def result(request):
     if request.method == "POST":
@@ -31,44 +43,46 @@ def result(request):
 
         ## calculate the age
         age = datetime.datetime.now().year - date.year
-
+        quarter = calcalateQuater(date.month)
         ## If the age is 35 perctange is 50% and 
         perc = age / 70 * 100;
         ## perc to fixes 2
         perc = round(perc, 2)
 
+        ## read json file
+        data = {}
+        with open('yasotuzbes/quotes/data.json', 'r', encoding='utf-8') as f:
+            data = json.load(f)
+
         ## 0-25 25-50 50-75 75-100 for perc
-        if perc >= 0 and perc <= 25:
-            quote = "Zamanla nasıl değişiyor insan hangi resmime baksam ben değilim!"
-        elif perc >= 25 and perc <= 50:
-            quote = "Gökyüzünün başka rengi de varmış! \n Geç fark ettim taşın sert olduğunu."
-        elif perc >= 50 and perc <= 75:
-            quote = "Yaş 35 yolun yarısı eder. \n Dante gibi ortasındayız ömrün." 
+                ## For main auidence
+        if age >= 18 and age <= 23:
+            pass
         else:
-            quote = "Ne dönüp duruyor havada kuşlar?\n Nerden çıktı bu cenaze? Ölen kim?"
+            if perc >= 0 and perc <= 25:
+                age = 1
+            elif perc >= 25 and perc <= 50:
+                age = 24
+            elif perc >= 50 and perc <= 75:
+                age = 40
+            else:
+                age = 100
 
-        ## Age conditions
-        if age == 18:
-            quote = "Delikanlı çağımızdaki cevher, \n Yalvarmak, yakarmak nafile bugün."
-        
-        if age == 19:
-            quote = "Hayal meyal şeylerden ilk aşkımız; \n Hâtırası bile yabancı gelir."
 
-        if age == 20:
-            quote = "Yalvarmak, yakarmak nafile bugün, \n Gözünün yaşına bakmadan gider."
 
-        if age == 21:
-            quote = "Her doğan günün bir dert olduğunu, \n İnsan bu yaşa gelince anlarmış."
 
-        if age == 22:
-            quote = "Hangi resmime baksam ben değilim \n Nerde o günler, o şevk, o heyecan?"
 
-        if age == 23:
-            quote = "Neden böyle düşman görünürsünüz; \n Yıllar yılı dost bildiğim aynalar?"
+
+
+
+        ## json formak of quoteos
+        #quoteos = {
+        #    "quote": quote
+        #}
 
         if age >= 70:
             return render(request, 'dead.html')
-        return render(request, 'result.html', {'age': age, 'perc': perc, 'birthdate': date_string, 'quote': quote})
+        return render(request, 'result.html', {'age': age, 'perc': perc, 'birthdate': date_string, 'quote': data[f"{age}.{quarter}"]})
 
 
     
